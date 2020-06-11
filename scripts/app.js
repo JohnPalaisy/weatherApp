@@ -1,7 +1,7 @@
 // app.js to manipulate dom
-const cityForm = document.querySelector('form');
-const card = document.querySelector('.card');
-const details = document.querySelector('.details');
+const cityForm = document.getElementById('formHandler');
+const card = document.getElementById('card');
+const details = document.getElementById('details');
 const time = document.getElementsByClassName('time')[0];
 const icon = document.getElementById('icon');
 
