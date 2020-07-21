@@ -4,6 +4,7 @@ const card = document.getElementById('card');
 const details = document.getElementById('details');
 const time = document.getElementsByClassName('time')[0];
 const icon = document.getElementById('icon');
+const forecast = new Forecast()
 
 const updateUI = (data) => {
 
@@ -39,15 +40,6 @@ const updateUI = (data) => {
 
 };
 
-const updateCity = async (city) => {
-    
-    const cityDets = await getCity(city);
-    const weather = await getWeather(cityDets.Key);
-
-    return { cityDets, weather };
-
-};
-
 cityForm.addEventListener('submit', e => {
     // prevent default action
     e.preventDefault();
@@ -57,8 +49,18 @@ cityForm.addEventListener('submit', e => {
     cityForm.reset();
 
     // update UI with new city
-    updateCity(city)
+    forecast.updateCity(city)
     .then(data => updateUI(data))
     .catch(err => console.log(err));
 
+
+    // set local storage
+    localStorage.setItem('city', city);
+
 });
+
+if(localStorage.getItem('city')){
+    forecast.updateCity(localStorage.getItem('city'))
+    .then(data => updateUI(data))
+    .catch(err => console.log(err));
+};
